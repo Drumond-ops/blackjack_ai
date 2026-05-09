@@ -1,0 +1,13 @@
+# Ignorar arquivos compilados e executáveis
+*.o
+bin/*
+!bin/.keep
+
+# Ignorar o banco de dados (cada um terá o seu localmente)
+data/*.db
+!data/.keep
+
+# Ignorar pastas e arquivos do sistema operacional
+.DS_Store
+.vscode/
+
