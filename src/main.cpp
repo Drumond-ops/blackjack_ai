@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Baralho.hpp"
+#include "Jogador.hpp"
 
 
 
