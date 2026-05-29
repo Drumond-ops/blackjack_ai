@@ -2,6 +2,8 @@
 #define JOGADOR_HPP
 
 #include "Carta.hpp"
+#include "Baralho.hpp"
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -15,7 +17,9 @@ public:
     int getPontos() const;
     std::string getNome() const;
     std::vector<Carta> getMao() const;
+    virtual bool decidir_jogada() const;
     void resetMao();
+    virtual ~Jogador();
 };
 
 #endif

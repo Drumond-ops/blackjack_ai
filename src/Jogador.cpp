@@ -40,3 +40,16 @@ int Jogador::getPontos() const{
     
     return pontos;    
 }
+
+bool Jogador::decidir_jogada() const{
+    char opc;
+    if(getPontos() < 21){
+        std::cout << "Pedir mais uma carta?(S/N)" << std::endl;
+        std::cin >> opc;
+        return(opc == 's' || opc == 'S');
+    }
+    else{
+        std::cout << "Voce estourou!\n" << std::endl;
+        return false;
+    }
+}
