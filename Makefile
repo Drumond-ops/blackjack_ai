@@ -7,6 +7,9 @@ CXX = g++
 # -I include/ avisa onde estão os arquivos .hpp
 CXXFLAGS = -Wall -std=c++17 -I include/
 
+# Flags de Linkagem (Bibliotecas externas)
+LDFLAGS = -lsqlite3
+
 # Nome do programa final e onde ele vai ficar
 TARGET = bin/blackjack_app
 
@@ -16,15 +19,13 @@ SRCS = $(wildcard src/*.cpp)
 # Transforma a lista de .cpp em .o (arquivos objeto)
 OBJS = $(SRCS:.cpp=.o)
 
-# Regra principal (o que acontece quando você digita apenas 'make')
-all: $(TARGET)
-
 # Regra de linkagem: Junta todos os .o para criar o executável final
 $(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+	@mkdir -p bin
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS) $(LDFLAGS)
 	@echo "Sucesso! Para jogar, digite: ./$(TARGET)"
 
-# Regra de compilação: Ensina como transformar um .cpp em um .o
+# Ensina como transformar um .cpp em um .o
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
