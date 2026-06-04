@@ -17,7 +17,8 @@ public:
     int getPontos() const;
     std::string getNome() const;
     std::vector<Carta> getMao() const;
-    virtual bool decidir_jogada() const;
+    virtual bool decidir_jogada(int pontosDealer);
+    virtual void receberRecompensa(float recompensa, int novoPonto, bool acabouJogo);
     void resetMao();
     virtual ~Jogador();
 };

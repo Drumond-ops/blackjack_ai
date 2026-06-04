@@ -73,3 +73,11 @@ void GerenciadorBD::Q_update(int score, int dealer, int choice, float Qvalue) {
     }
     sqlite3_finalize(stmt);
 }
+
+void GerenciadorBD::iniciarTransacao() {
+    sqlite3_exec(Data, "BEGIN TRANSACTION;", nullptr, nullptr, nullptr);
+}
+
+void GerenciadorBD::finalizarTransacao() {
+    sqlite3_exec(Data, "COMMIT;", nullptr, nullptr, nullptr);
+}

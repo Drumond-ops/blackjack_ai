@@ -6,7 +6,7 @@
 class Dealer : public Jogador{
     public:
     Dealer(const std::string &nome);
-    bool decidir_jogada() const;
+    bool decidir_jogada(int pontoDealer);
 };
 
 

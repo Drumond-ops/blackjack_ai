@@ -2,20 +2,24 @@
 #define JOGO_HPP
 
 #include "Dealer.hpp"
+#include <vector>
 
 class Jogo{
     Baralho baralho;
-    Jogador *jogador;
+    std::vector<Jogador*> jogadores;
     Jogador *dealer;
-    
+    bool modoRapido;
+    static int cont;
+
     void iniciarJogo();
     void imprimirMesa(bool revealDealer = false) const ;
     void turnoJogador() ;
     void turnoDealer();
     void resultado();
 public:
-    Jogo(const std::string& jogador);
+    Jogo(std::vector<Jogador*> players, bool modo = false);
     void iniciarPartida();
+    void modoTreino(int partidas);
     ~Jogo();
 };
 

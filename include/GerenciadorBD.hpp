@@ -14,8 +14,8 @@ public:
 
     GerenciadorBD(const std::string& nomeArquivo = "qlearning.db");
     ~GerenciadorBD();
-
-
+    void iniciarTransacao();
+    void finalizarTransacao();
     float getQValue(int score, int dealer, int choice);
     void Q_update(int score, int dealer, int choice, float Qvalue);
 
