@@ -1,7 +1,5 @@
 #include "Carta.hpp"
 
-using std::string;
-
 Carta::Carta(Valor v, Naipe n) : valor(v), naipe(n) {}
 
 Valor Carta::getValor() const{
@@ -12,9 +10,9 @@ Naipe Carta::getNaipe() const{
     return naipe;
 }
 
-string Carta::toString() const{
-    string strNaipe;
-    string strValor;
+std::string Carta::toString() const{
+    std::string strNaipe;
+    std::string strValor;
     switch(valor){
         case Valor::AS:
             strValor = "As";
@@ -75,3 +73,16 @@ string Carta::toString() const{
     return strValor + " " + "de" + " " + strNaipe;
 }
 
+std::string Carta::getCardPath() const{
+    std::string strNaipe;
+    std::string strValor = std::to_string(static_cast<int>(valor));
+
+    switch(naipe){
+        case Naipe::COPAS:    strNaipe = "Copas"; break;
+        case Naipe::ESPADAS:  strNaipe = "Espadas"; break;
+        case Naipe::OUROS:    strNaipe = "Ouros"; break;
+        case Naipe::PAUS:     strNaipe = "Paus"; break;
+    }
+
+    return "/assets/cards" + strNaipe + "_" + strValor;
+};

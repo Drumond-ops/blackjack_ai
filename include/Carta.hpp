@@ -35,6 +35,8 @@ public:
     Valor getValor() const;
     Naipe getNaipe() const;
     std::string toString() const;
+
+    std::string getCardPath() const;
 };
 
 #endif

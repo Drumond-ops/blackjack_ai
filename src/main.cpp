@@ -1,44 +1,38 @@
-#include "Jogo.hpp"
-#include "GerenciadorBD.hpp"
-#include "JogadorIA.hpp"
+#include <SFML/Graphics.hpp>
 #include <iostream>
-#include <string>
-#include <vector>
 
 int main() {
-    GerenciadorBD DataBank("memoria_robo.db");
-
-    // Cria os dois jogadores
-    Jogador_IA* jarvis = new Jogador_IA(&DataBank, "Jarvis", 0.05f); // 5% de exploração no treino
-    Jogador* humano = new Jogador("Voce");
-
-    // === MODO TREINO (Só o Jarvis joga) ===
-    std::vector<Jogador*> mesaDeTreino = {jarvis};
-    Jogo academia(mesaDeTreino);
+    // 1. Cria a janela gráfica com resolução de 800x600
+    std::cout << "estamos no 2 agora\n\n" << std::endl;
+    sf::RenderWindow janela(sf::VideoMode(800, 600), "Blackjack IA - Mesa de Teste");
     
-    DataBank.iniciarTransacao();
-    academia.modoTreino(100000);
-    DataBank.finalizarTransacao();
+    // Trava em 60 quadros por segundo para não sobrecarregar o processador
+    janela.setFramerateLimit(60);
 
-    jarvis->setTaxaExploracao(0.0f);
-    // === MODO JOGO (Você e o Jarvis contra a Banca) ===
-    std::vector<Jogador*> mesaOficial = {humano, jarvis};
-    Jogo banca_blackjack(mesaOficial);
-    
-    bool continuar;
-    char opc;
-    do{
-        std::cout << "\n\n======================== BLACK JACK ROBOTICO =============================\n\n" << std::endl;
-        banca_blackjack.iniciarPartida();
+    std::cout << "[Sistema] Iniciando motor grafico SFML..." << std::endl;
+
+    // 2. O GAME LOOP (Roda continuamente até a janela ser fechada)
+    while (janela.isOpen()) {
         
-        std::cout << "\nDeseja jogar mais um jogo? (s/n): ";
-        std::cin >> opc;
-        continuar = (opc == 's' || opc == 'S');
-    }while(continuar);
+        sf::Event evento;
+        
+        // 3. Verifica os eventos do Sistema Operacional (Mouse/Teclado)
+        while (janela.pollEvent(evento)) {
+            // Se o usuário clicar no 'X' da janela ou apertar a tecla ESC
+            if (evento.type == sf::Event::Closed || 
+               (evento.type == sf::Event::KeyPressed && evento.key.code == sf::Keyboard::Escape)) {
+                janela.close();
+            }
+        }
 
-    // Boa prática: limpar a memória no final
-    delete jarvis;
-    delete humano;
+        // 4. Desenha o quadro (Update & Draw)
+        // Limpa a tela inteira com a cor Verde escuro (RGB: 34, 139, 34)
+        janela.clear(sf::Color(34, 139, 34));
 
+        // Joga os pixels desenhados para o monitor
+        janela.display();
+    }
+
+    std::cout << "[Sistema] Janela fechada com sucesso!" << std::endl;
     return 0;
 }

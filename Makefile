@@ -8,7 +8,7 @@ CXX = g++
 CXXFLAGS = -Wall -std=c++17 -I include/
 
 # Flags de Linkagem (Bibliotecas externas)
-LDFLAGS = -lsqlite3
+LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsqlite3
 
 # Nome do programa final e onde ele vai ficar
 TARGET = bin/blackjack_app
