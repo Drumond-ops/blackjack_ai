@@ -43,7 +43,7 @@ int Jogador::getPontos() const{
 
 bool Jogador::decidir_jogada(int pontosDealer) {
     char opc;
-    if(getPontos() <= 21){
+    if(this->getPontos() <= 21){
         std::cout << "Pedir mais uma carta?(S/N)" << std::endl;
         std::cin >> opc;
         return(opc == 's' || opc == 'S');

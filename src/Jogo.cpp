@@ -65,9 +65,9 @@ void Jogo::turnoJogador(){
             if(!modoRapido) this->imprimirMesa();
 
             int scoreAtual = jogador->getPontos();
-            bool estouro = (scoreAtual > 21);
+            bool estourou = (scoreAtual > 21);
 
-            jogador->receberRecompensa(estouro ? -1.0f : 0.0f, scoreAtual, estouro);
+            jogador->receberRecompensa(estourou ? -1.0f : 0.0f, scoreAtual, estourou);
         }
     }
    
@@ -184,11 +184,11 @@ void Jogo::modoTreino(int partidas){
             }
         }
         cont++;
-        if((cont % 1000) == 0){
+        if((cont % 10000) == 0){
             std::cout << cont << "Partidas jogadas\n" << std::endl;
         }
         this->resultado();  
     }
-    std::cout << "[Motor] Treinamento concluído com sucesso!" << std::endl;
+    std::cout << "Treinamento concluído com sucesso!" << std::endl;
     this->modoRapido = false;
 }

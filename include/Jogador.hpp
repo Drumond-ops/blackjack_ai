@@ -18,7 +18,8 @@ public:
     std::string getNome() const;
     std::vector<Carta> getMao() const;
     virtual bool decidir_jogada(int pontosDealer);
-    virtual void receberRecompensa(float recompensa, int novoPonto, bool acabouJogo);
+    virtual void receberRecompensa(float recompensa, int novoPonto, bool acabouJogo){};
+    virtual void setTaxaExploracao(float novaTaxa){};
     void resetMao();
     virtual ~Jogador();
 };

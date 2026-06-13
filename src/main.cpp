@@ -1,38 +1,48 @@
-#include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Jogo.hpp"
+#include "JogadorIA.hpp"
+#include "GerenciadorBD.hpp"
+
+using std::cout;
+using std::endl;
+using std::cin;
+using std::getline;
+using std::string;
+using std::vector;
 
 int main() {
-    // 1. Cria a janela gráfica com resolução de 800x600
-    std::cout << "estamos no 2 agora\n\n" << std::endl;
-    sf::RenderWindow janela(sf::VideoMode(800, 600), "Blackjack IA - Mesa de Teste");
+    cout << "========================================== CASSINO C++ =============================================\n"
+         << "====================================== MESA DE BLACKJACK ===========================================\n"
+         << endl;
+
+    GerenciadorBD cerebro("Banco");
+    Jogador *robo = new Jogador_IA(&cerebro);
+    string nome;
+    cout << "Entre com o seu nome: " << endl;
+    getline(cin, nome);
+    Jogador *humano = new Jogador(nome);
+    vector<Jogador*> IA = {robo};
     
-    // Trava em 60 quadros por segundo para não sobrecarregar o processador
-    janela.setFramerateLimit(60);
 
-    std::cout << "[Sistema] Iniciando motor grafico SFML..." << std::endl;
+    {//modo treino da IA
+        cerebro.iniciarTransacao();
+        Jogo Treinamento_IA(IA);
+        cout << "===== Modo de treinamento da IA inciado \n" << endl;
+        Treinamento_IA.modoTreino(15000000);
+        cerebro.finalizarTransacao();
+    }//Fim do modo treino*/
+    
+    //iniciando jogo
+    robo->setTaxaExploracao(0.0f);
+    
+    vector<Jogador*> jogadores = {humano, robo};
+    Jogo blackJack(jogadores);
+    char opc;
+    do{
+        blackJack.iniciarPartida();
+        cout << "Jogar mais uma partida? (s/n): " << endl;
+        cin >> opc;
+    }while(opc == 's' || opc == 'S');
 
-    // 2. O GAME LOOP (Roda continuamente até a janela ser fechada)
-    while (janela.isOpen()) {
-        
-        sf::Event evento;
-        
-        // 3. Verifica os eventos do Sistema Operacional (Mouse/Teclado)
-        while (janela.pollEvent(evento)) {
-            // Se o usuário clicar no 'X' da janela ou apertar a tecla ESC
-            if (evento.type == sf::Event::Closed || 
-               (evento.type == sf::Event::KeyPressed && evento.key.code == sf::Keyboard::Escape)) {
-                janela.close();
-            }
-        }
-
-        // 4. Desenha o quadro (Update & Draw)
-        // Limpa a tela inteira com a cor Verde escuro (RGB: 34, 139, 34)
-        janela.clear(sf::Color(34, 139, 34));
-
-        // Joga os pixels desenhados para o monitor
-        janela.display();
-    }
-
-    std::cout << "[Sistema] Janela fechada com sucesso!" << std::endl;
-    return 0;
+    cout << "\n\n ------ Encerrando programa... --------\n\n" << endl;
 }

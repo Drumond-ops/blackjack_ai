@@ -16,11 +16,12 @@ class Jogo{
     void turnoJogador() ;
     void turnoDealer();
     void resultado();
+    
 public:
     Jogo(std::vector<Jogador*> players, bool modo = false);
-    void iniciarPartida();
     void modoTreino(int partidas);
     ~Jogo();
+    void iniciarPartida();
 };
 
 

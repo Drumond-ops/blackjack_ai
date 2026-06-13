@@ -10,10 +10,10 @@ Jogador_IA::Jogador_IA(GerenciadorBD* bd, const std::string& nome, float tx_exp)
 bool Jogador_IA::decidir_jogada(int pontosDealer){
     bool decisao;
     
-    if(this->getPontos() >= 21) return false;
+    if(this->getPontos() > 21) return false;
 
     //MODO DE EXPLORACAO ALERATORIA
-    if(distribuicao(gerador) < taxa_exp){
+    if((distribuicao(gerador) < taxa_exp) && (taxa_exp != 0.0f)){
         std::uniform_int_distribution<int> moeda(0,1);
         decisao = (moeda(gerador) == 1);
     }
@@ -47,7 +47,4 @@ void Jogador_IA::receberRecompensa(float recompensa, int novoPonto, bool acabouJ
     float novoQ = Qatual + alpha*(recompensa + (gamma*maxQf) - Qatual);
     bancoDados->Q_update(memoria_pontos, memoria_dealer, memoria_decisao, novoQ);
 
-}
-
-void Jogador::receberRecompensa(float recompensa, int novoPonto, bool acabouJogo) {
 }

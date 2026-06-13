@@ -17,7 +17,7 @@ private:
 public:
     Jogador_IA(GerenciadorBD* bd, const std::string& nome = "Jarvis", float tx_exp = 0.1f);
     void receberRecompensa(float recompensa, int novoPonto, bool acabouJogo);
-    bool decidir_jogada(int pontosDealer);
+    bool decidir_jogada(int pontosDealer) override;
     void setTaxaExploracao(float novaTaxa) { this->taxa_exp = novaTaxa; };
 };
 
